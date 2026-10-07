@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rajeshwer Mamidala | UX Architect & Enterprise Product Design</title>
+  <style>
+    :root {
+      --primary: #1e293b;
+      --accent: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #334155;
+      --heading: #0f172a;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    header h2 {
+      font-size: 1.1rem;
+      color: #93c5fd;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      max-width: 90%;
+      margin: 0 auto 1.5rem;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      font-size: 0.9rem;
+    }
+
+    .contact-links a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    .contact-links a:hover {
+      text-decoration: underline;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      padding: 0 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav a {
+      padding: 0.5rem 1rem;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    nav a:hover, nav a:focus, nav a.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .container {
+      max-width: 90%;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--heading);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Grid Layouts */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card:hover{
+      transform:scale(1.02);
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .card h3 {
+      color: var(--heading);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Skills Layout */
+    .skills-category {
+      margin-bottom: 1rem;
+    }
+
+    .skills-category h4 {
+      font-size: 0.95rem;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    /* Timeline / Work Experience */
+    .timeline-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .company {
+      font-weight: bold;
+      color: var(--heading);
+    }
+
+    .date {
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    .project-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.5rem;
+    }
+    ol{
+      padding-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    ul {
+      padding-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    /* Filter Buttons for Core Competencies */
+    .list-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .list-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .scroll-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 1;
+      visibility: hidden;
+      transition: all 0.3s;
+      box-shadow: 0 4px 0.9375rem rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      font-size: 24px;
+    }
+     .scroll-top:hover{
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 1.25rem rgba(0, 0, 0, 0.3);
+     }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--primary);
+      color: white;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>RAJESHWER MAMIDALA</h1>
+    <h2> Senior UI/UX Lead Designer | UI Developer | UX Researcher | UX Architect | Enterprise SaaS and B2B </h2>
+    <p>Strategic UX Architecture & Product Design professional focused on creating scalable, research-led experiences across Enterprise SaaS, B2B/B2C, Healthcare, Business Intelligence, Finance and Mobility Management, with expertise in Information Architecture, User Flows, Design Systems, Usability and Front-End Implementation.</p>
+    
+    <div class="contact-links">
+      <span><a href="tel:9912179358">+91- 9912179358</a></span>
+      <a href="mailto:rajeshwer.neela@gmail.com">rajeshwer.neela@gmail.com</a>
+      <a href="https://www.linkedin.com/in/rajeshwer/">LinkedIn</a>
+      <a href="https://www.behance.net/rajeshwermamidala">Behance</a>
+      <a href="https://dribbble.com/Rajeshwer1979">Dribbble</a>
+      <a href="https://github.com/rajeshwer1979">GitHub</a>
+      <a href="https://rajeshwermamidala.github.io/">Digital Portfolio</a>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#summary">Summary</a>
+    <a href="#accomplishments">Accomplishments</a>
+    <a href="#scenarios">UX Scenarios</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education & Certs</a>
+    <a href="#clientele">Clientele Summary & Links</a>
+  </nav>
+
+  <div class="container">
+
+    <section id="summary">
+      <h2 class="section-title">Profile Summary</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>UX Architecture & Product Design</h3>
+          <p>Human-centered Senior UI/UX Designer and Developer with 16+ years in the design field. Brings 11+ years of specialized user centered digital experience
+design as a  Lead UX Researcher, UX Architect, Enterprise SaaS and B2B UX Designer. and 5 years of focused web design expertise to build intuitive, user-driven solutions.</p>
+        </div>
+        <div class="card">
+          <h3>Enterprise Product Design</h3> 
+          <p>Associated with Product Based Companies., architecting UX for enterprise products like Envato Themeforest Websites and Apps, MasterGST, SplashBI, EHR, Orion, GRN Connect, EMM across Desktop and Mobility Management, SaaS and Workforce Technology. </p> 
+        </div>
+        <div class="card">
+          <h3>UX Research & Design Systems</h3> 
+          <p>Strategic UX Architecture & Product Design professional focused on creating scalable, research-led experiences across Enterprise SaaS, B2B/B2C, Healthcare,
+Business Intelligence, Finance and Mobility Management, I work across the complete design lifecycle, with expertise in Information Architecture, User Flows,
+Design Systems, Usability and Front-End Implementation.</p> 
+        </div>
+      </div>
+    </section>
+
+    <section id="competencies">
+      <h2 class="section-title">Core Competencies</h2>
+      <div class="list-grid">
+        <div class="list-item">UX Architecture & Strategy</div>  
+        <div class="list-item">Product & Interaction Design</div>  
+        <div class="list-item">Information Architecture</div>  
+        <div class="list-item">Design Systems & UX Governance</div>  
+        <div class="list-item">User & Task Flow Design</div> 
+        <div class="list-item">UX Research & Usability Testing</div>  
+        <div class="list-item">Heuristic Evaluation</div>  
+        <div class="list-item">Enterprise SaaS & B2B Design</div>  
+        <div class="list-item">Accessibility & Usability (WCAG)</div>  
+        <div class="list-item">Front-End UX Implementation</div> 
+      </div>
+    </section>
+
+    <section id="accomplishments">
+      <h2 class="section-title">Notable Accomplishments</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Enterprise Mobility UX</h3>  
+          <p>Architected UX for MySecureME EMM, aiding Android and iOS device fleets ranging from 50 to 5,000+ devices.</p>  
+        </div>
+        <div class="card">
+          <h3>Data Management UX</h3> 
+          <p>Redesigned UX across 5 Orion enterprise data management modules (Migration, Governance, MDM, Customer/Vendor Master).</p>  
+        </div>
+        <div class="card">
+          <h3>Data Quality Improvement</h3> 
+          <p>Enhanced enterprise data quality workflows, contributing to an estimated 20–30% improvement in data consistency and completeness.</p>  
+        </div>
+        <div class="card">
+          <h3>Healthcare UX Architecture</h3> 
+          <p>Designed interconnected EHR experiences spanning 9+ clinical modules, supporting complex provider and patient workflows.</p>  
+        </div>
+      </div>
+    </section>
+
+    <section id="scenarios">
+      <h2 class="section-title">UX Problem-Solving Scenarios</h2>
+      <div class="timeline-item">
+        <div class="company">MySecureME EMM</div> 
+        <p><strong>Problem:</strong> Mapping established configuration profiles/policies across bulk device enrollments to specific users and groups.</p> 
+        <p><strong>Solution:</strong> Designed an "Assigned Policies" experience in User Management, allowing admins to search and stack/prioritize multiple configuration profiles with feature-level controls.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="company">Orion – Enterprise Data Management</div> 
+        <p><strong>Problem:</strong> Inconsistent duplicate data across 5 modules without a clear workflow for error resolution.</p> 
+        <p><strong>Solution:</strong> Combined error identification and resolution into a guided workflow, eliminating screen context switching.</p>  
+      </div>
+      <div class="timeline-item">
+        <div class="company">EHR Application</div>  
+        <p><strong>Problem:</strong> Providers were forced to navigate across 9+ modules (Messaging, History, Lab Results, etc.) to gather patient context during appointment requests.</p>
+        <p><strong>Solution:</strong> Designed an AI-assisted contextual workflow surfacing only relevant patient data for specific appointment contexts, cutting out visual clutter.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="company">SplashBI Enterprise SaaS</div> 
+        <p><strong>Problem:</strong> Moving from high-level charts to granular table data caused users to lose analytical context.</p> 
+        <p><strong>Solution:</strong> Designed a side Inspection Panel that opens upon selecting chart elements to preserve visual analytical context.</p>  
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title">Work Experience</h2>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <span class="company">CtrlAltFIX Solutions Pvt. Ltd. | UI/UX Senior Designer</span>  
+          <span class="date">May'25 – Jul'26 | Hyderabad</span>  
+        </div>
+        <div class="project-title">Project: MySecureME EMM / SoftCloudsIT</div>  
+        <ul>
+          <li>Architected end-to-end UX solutions, translating documentation into user flows, IA, and interfaces.</li> 
+          <li>Designed QR-based device enrollment journeys and fleet monitoring for iOS and Android environments.</li>  
+          <li>Designed real-time work location tracking and IT support platform workflows for Employees, IT Support, and Managers.</li>  
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <span class="company">Techwave Consulting India Pvt. Ltd. | UI/UX Designer</span>  
+          <span class="date">Oct'23 – Apr'25 | Hyderabad</span> 
+        </div>
+        <div class="project-title">Project: Orion / GRNconnect</div> 
+        <ul>
+          <li>Led UX design across Data Migration, Data Governance, MDM, Customer Master, and Vendor Master.</li> 
+          <li>Designed responsive desktop and mobile experiences in Figma for B2B travel booking workflows (GRNconnect).</li>  
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <span class="company">Edvak Health Pvt. Ltd. | UI/UX Designer</span>  
+          <span class="date">Jan'22 – Feb'23 | Hyderabad</span> 
+        </div>
+        <div class="project-title">Project: Electronic Health Record (EHR)</div>  
+        <ul>
+          <li>Designed UX for an AI-powered EHR and Practice Management platform covering appointment requests and patient portal experiences.</li>  
+          <li>Collaborated with engineering teams on Angular billing modules and responsive UI.</li>  
+        </ul>
+      </div>
+
+      <button id="toggle-exp-btn" style="padding: 0.5rem 1rem; cursor: pointer; background: var(--accent); color: white; border: none; border-radius: 4px;">View Earlier Experience (2008 - 2022)</button>
+      
+      <div id="earlier-experience" style="display: none; margin-top: 1rem;">
+        <div class="timeline-item">
+          <div class="company">Sancara Shampad Pvt. Ltd. (Jul'20 – Jan'22)</div> 
+          <p>Designed integrated EHR, Patient Portal, and analytics platforms.</p>  
+        </div>
+        <div class="timeline-item">
+          <div class="company">Splash Business Intelligence Pvt. Ltd. (Apr'18 – Mar'20)</div> 
+          <p>Designed UX for enterprise business intelligence and reporting tools.</p> 
+        </div>
+        <div class="timeline-item">
+          <div class="company">BVM Consultancy Services / Bravemount / Vensoft / Wisdom IT / Athensys / Aivah (2008 - 2018)</div> 
+          <p>UI/UX Design experience across web apps, financial GST software, e-commerce, ThemeForest WordPress themes, and digital media portals.</p> 
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="card">
+        <div class="skills-category">
+          <h4>UX & Product Design</h4>
+          <p>UX Strategy, UX Architecture, Interaction Design, Design Thinking, Information Architecture, Wireframing, Prototyping.</p]  
+        </div>
+        <div class="skills-category">
+          <h4>Tools & Prototyping</h4>
+          <p>Figma, Adobe XD,Adobe Photoshop, Adobe Illustrator, Adobe Firefly, Axure RP, Sketch, InVision, Storybook, Balsamiq.</p]  
+        </div>
+        <div class="skills-category">
+          <h4>Front-End Technologies</h4>
+          <p>HTML5, CSS3, Sass, Tailwind CSS, JavaScript, TypeScript, React, Angular, Lit.js,Express Js, Node.js, MongoDB, Python.</p] 
+        </div>
+        <div class="skills-category">
+          <h4>AI-Assisted Design & Automation</h4>
+          <p>Figma Agent, Figma Make, Figma MCP, ChatGPT, Claude, Midjourney, v0, Copilot, Tokens Studio, Style Dictionary, JSON Schemas.</p]  
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2 class="section-title">Education & Certifications</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Education</h3> 
+          <p><strong>M.Sc. – Physics</strong></p>  
+          <p>Acharya Nagarjuna University CDE, Guntur (2006 - 2008)</p> 
+        </div>
+        <div class="card">
+          <h3>Certifications</h3>  
+          <ul>
+            <li>How to Design for UX Accessibility (Udemy)</li> 
+            <li>UX Audit + UI Redesign (Udemy)</li>  
+            <li>UX Strategy Fundamentals (Udemy)</li>  
+            <li>Mastering Generative AI for Developers (Udemy)</li>  
+            <li>Object Oriented UX Fundamentals (Udemy)</li>  
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+        <section id="clientele">
+      <h2 class="section-title">CLIENTELE SUMMARY & LINKS</h2>
+      <div class="grid">
+          <div class="card">
+          <h3>Design Thinking Process </h3>  
+          <ol>
+            <li><a href="https://www.figma.com/design/J8gBhLvrIChYiGRUrDMDQP/DesIgn-System---Design-Thinking-Process?t=ZUkgMGx61fI28ffW-0" target="_blank">Design Thinking Process</a></li>   
+          </ol>
+        </div>
+        <div class="card">
+          <h3>Edvak Health Private Limited:</h3> 
+          <ol>
+          <li><a href="https://edvak.com/" target="_blank">Edvak Health Private Limited- EHR Application Under Development</a></li>
+          <li><a href="https://www.figma.com/proto/6lWAPrtsEEeboFRBcBhFU3/Patient-Intake-Que?node-id=4%3A60&scaling=min-zoom&page-id=0%3A1&starting-point-
+          node-id=4%3A60&show-proto-sidebar=1" target="_blank">Patient Intake Questionnaire</a></li>
+          <li><a href="https://xd.adobe.com/view/65f671f5-c8ab-447d-9a36-97ce08806068-30a5/" target="_blank">EHR Application</a></li>
+     
+            <li>
+              <a href="https://xd.adobe.com/view/be7ecdea-14bd-4496-a18f-54cac2a78ed0-eb2d/" target="_blank">Patient Portal</a>
+              <a href="https://xd.adobe.com/view/57fa3cbf-d5f7-456a-88f5-426fc01568f2-02a9/ " target="_blank">Portal - Mobile</a>
+            </li>
+        </ol>  </div>
+        <div class="card">
+          <h3>Splash BI</h3>  
+          <ol>
+            <li><a href="https://splashbi.com/" target="_blank">Splash BI</a></li>  
+            <li><a href="https://splashbi.com/enterprise-intelligence-platform" target="_blank">Enterprise Intelligence Platform</a></li>   
+          </ol>
+        </div>
+
+          <div class="card">
+          <h3>BVM Consultancy Services Pvt Ltd</h3>  
+          <ol>
+            <li><a href="https://mastergst.com/" target="_blank">GST Suvidha Provider</a></li>  
+            <li><a href="https://mastergst.com/product-videos.html" target="_blank">Master GST Product Videos</a></li>   
+            <li><a href="https://edvantagepoint.com/" target="_blank">Explore the best CBSE & ICSE schools</a></li>
+            <li><a href="https://apsfl.in/" target="_blank">Adhra Pradesh State Fibernet Limited | AP FIber | APSFL</a></li>
+            <li><a href="https://24x7systems.com/ " target="_blank">24x7 Systems A consulting firm that empowers</a></li>
+            <li><a href="http://bvmcs.com/" target="_blank">BVM Consultancy Services Pvt Ltd</a></li>
+          </ol>
+        </div>
+
+          <div class="card">
+          <h3>Bravemount Company Pvt. Ltd </h3>  
+          <ol>
+            <li><a href="https://dogalize.com/ " target="_blank">Dogalize is the App for dogs social network</a></li>   
+          </ol>
+        </div>
+
+         <div class="card">
+          <h3>Vensoft Inc Pvt. Ltd. </h3>  
+          <ol>
+            <li><a href="https://www.campnavigator.com/" target="_blank">Perfect Camp for my Child</a></li>   
+            <li><a href="http://www.cinesprint.com" target="_blank">Cinemas & News Updates Portal</a></li>
+            <li><a href="https://sqalabs.com" target="_blank">Enabling businesses and providing company</a></li>
+          </ol>
+        </div>
+
+         <div class="card">
+          <h3>EMM(Enterprise Mobility Management)</h3>  
+          <ol>
+            <li><a href="https://mysecureme.com " target="_blank">My SecureMe</a></li>   
+            <li><a href="https://dev.unfoldlabs.com/mysecureme_emm" target="_blank">My SecureMe EMM</a></li>
+            <li><a href="https://www.figma.com/design/NryoIlEQ946tz1xt7udz2U/EMM?node-id=3809-2&p=f&t=ZUkgMGx61fI28ffW-0" target="_blank">My SecureMe EMM Figma</a></li>
+            <li><a href="https://github.com/rajeshwer1979/Case-Studies">EMM Case Study</a></li>
+          </ol>
+        </div>
+
+
+        <div class="card">
+          <h3>EMM(Enterprise Mobility Management)</h3>  
+          <ol>
+            <li><a href="https://mysecureme.com " target="_blank">My SecureMe</a></li>   
+            <li><a href="https://dev.unfoldlabs.com/mysecureme_emm" target="_blank">My SecureMe EMM</a></li>
+            <li><a href="https://www.figma.com/design/NryoIlEQ946tz1xt7udz2U/EMM?node-id=3809-2&p=f&t=ZUkgMGx61fI28ffW-0" target="_blank">My SecureMe EMM Figma</a></li>
+          </ol>
+        </div>
+
+
+        <div class="card">
+          <h3>Unfold Quotes Mobile App</h3>  
+          <ol>
+            <li><a href="https://dev.unfoldlabs.com" target="_blank">Unfoldlabs</a></li>   
+            <li><a href="https://www.figma.com/design/7HzO4V6SzALtqyMs5zyzTi/Unfold-Quotes?node-id=0-1&p=f&t=70o39q3jr1btCchl-0" target="_blank">Unfold Quotes Figma</a></li> 
+          </ol>
+        </div>
+
+        
+        <div class="card">
+          <h3>Softproject </h3>  
+          <ol>
+            <li><a href="https://www.figma.com/design/df5OL7lYMTfjURkPoLf9VU/SoftProjects?node-id=1572-3264&t=4j4fxmiWeHhGWbRR-0" target="_blank">SoftProjects Figma</a></li>  
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+<div class="scroll-top show" id="scrollToTopBtn">↑</div>
+  <footer>
+    <p>&copy; 2026 Rajeshwer Mamidala - Digital Portfolio</p>
+  </footer>
+
+  <script>
+    // Toggle Earlier Experience Section
+    const toggleBtn = document.getElementById('toggle-exp-btn');
+    const earlierExp = document.getElementById('earlier-experience');
+
+    toggleBtn.addEventListener('click', () => {
+      if (earlierExp.style.display === 'none') {
+        earlierExp.style.display = 'block';
+        toggleBtn.textContent = 'Hide Earlier Experience';
+      } else {
+        earlierExp.style.display = 'none';
+        toggleBtn.textContent = 'View Earlier Experience (2008 - 2022)';
+      }
+    });
+
+ // 1. Smooth scroll for Navigation links
+document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+
+    const targetSection = document.querySelector(targetId);
+    
+    if (targetSection) {
+      e.preventDefault();
+      
+      const headerOffset = 60;
+      const elementPosition = targetSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+// 2. Dynamic 'active' class on scroll (Up and Down)
+const sections = document.querySelectorAll('section[id]'); // Selects all sections with an ID
+const navLinks = document.querySelectorAll('nav a');
+
+const observerOptions = {
+  root: null, // uses the viewport
+  rootMargin: '-65px 0px -70% 0px', // Adjust '-65px' to match your fixed header height
+  threshold: 0
+};
+
+const observerCallback = (entries) => {
+  entries.forEach(entry => {
+    // Check if the section is intersecting the viewport tracking zone
+    if (entry.isIntersecting) {
+      const activeId = entry.target.getAttribute('id');
+      
+      navLinks.forEach(link => {
+        // Add 'active' if the href matches the section ID, otherwise remove it
+        if (link.getAttribute('href') === `#${activeId}`) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+  });
+};
+
+const observer = new IntersectionObserver(observerCallback, observerOptions);
+sections.forEach(section => observer.observe(section));
+
+
+  const btn = document.getElementById("scrollToTopBtn");
+
+  // Add click event listener
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Gives it an animated smooth scroll
+    });
+  });
+  </script>
+</body>
+</html>
